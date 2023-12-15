@@ -18,6 +18,7 @@ Welcome to the Payment API, a Java-based solution for processing card payments a
 
 3. **Endpoint:**
    Using postman:
+   **Make Payment:**
    POST http://localhost:3944/api/payments/make-payment
    Content-Type: application/json
 
@@ -29,8 +30,8 @@ Welcome to the Payment API, a Java-based solution for processing card payments a
   "deviceType": "Mobile"
 }
 
-  **Get Payments:**
-   GET http://localhost:3944/api/payments/get-payments
+   **Get Payments:**
+    GET http://localhost:3944/api/payments/get-payments
 
 
 
