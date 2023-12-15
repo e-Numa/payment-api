@@ -6,6 +6,7 @@ Welcome to the Payment API, a Java-based solution for processing card payments a
 - **Get Payments:** Retrieve payment information based on criteria.
 
 ## Usage
+# Getting Started
 1. **Clone Repository:**
    ```bash
    git clone https://github.com/e-Numa/payment-api.git
@@ -16,6 +17,7 @@ Welcome to the Payment API, a Java-based solution for processing card payments a
    java -jar target/payment-api.jar
 
 3. **Endpoint:**
+   Using postman:
    POST http://localhost:3944/api/payments/make-payment
    Content-Type: application/json
 
@@ -26,14 +28,9 @@ Welcome to the Payment API, a Java-based solution for processing card payments a
   "cvv": 123,
   "deviceType": "Mobile"
 }
-  
-4. **Get Payments:**
+
+  **Get Payments:**
    GET http://localhost:3944/api/payments/get-payments
 
-## Getting Started
-**Clone Repository:**
-   git clone https://github.com/e-Numa/payment-api.git
-
- 
 
 
