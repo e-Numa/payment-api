@@ -4,7 +4,10 @@ import com.enuma.paymentapi.entity.model.PaymentEntity;
 import com.enuma.paymentapi.payload.request.PaymentRequest;
 import com.enuma.paymentapi.payload.response.PaymentResponse;
 import com.enuma.paymentapi.service.payment_service.PaymentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +20,13 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping("/make-payment")
-    public PaymentResponse makePayment(@RequestBody PaymentRequest paymentRequest) {
+    public ResponseEntity<PaymentResponse> makePayment(@Valid @RequestBody PaymentRequest paymentRequest) {
         String status = (String) paymentService.processPayment(paymentRequest);
-        return new PaymentResponse(status);
+        PaymentResponse response = new PaymentResponse(status);
+        HttpStatus httpStatus = status.equals("Payment process SUCCESSFUL") ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(response, httpStatus);
     }
+
 
     @GetMapping("/get-payments")
     public List<PaymentEntity> getPayments(
