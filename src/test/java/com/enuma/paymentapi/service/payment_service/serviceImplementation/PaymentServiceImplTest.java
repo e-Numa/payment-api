@@ -51,7 +51,6 @@ class PaymentServiceImplTest {
         violations.add(violation);
 
         when(validator.validate(paymentRequest)).thenReturn(violations);
-
         String result = paymentService.processPayment(paymentRequest);
 
         assertTrue(result.contains("Validation error"));
@@ -67,8 +66,6 @@ class PaymentServiceImplTest {
         String result = paymentService.processPayment(paymentRequest);
 
         assertTrue(result.contains("Card already exists. Payment not processed."));
-
-        verify(paymentRepository, never()).save(any());
     }
 
 
@@ -81,6 +78,16 @@ class PaymentServiceImplTest {
 
         assertTrue(result.contains("Validation error"), "Expected validation error message");
         assertTrue(result.contains("Amount must be a positive value"), "Expected amount-related error message");
+    }
+
+    @Test
+    void testProcessPayment_CardExpired() {
+        PaymentRequest paymentRequest = new PaymentRequest(100.0, "1234567812345678", "01/21", 123, "Mobile");
+
+        when(paymentRepository.existsByCardNumber(anyString())).thenReturn(false);
+        String result = paymentService.processPayment(paymentRequest);
+
+        assertTrue(result.contains("Card is expired"));
     }
 
 

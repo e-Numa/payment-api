@@ -11,6 +11,8 @@ import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +43,9 @@ public class PaymentServiceImpl implements PaymentService {
                 return "Validation error: Amount must be a positive value";
             }
 
+            if (isCardExpired(paymentRequest.getExpiryDate())) {
+                throw new PaymentException("Card is expired. Payment not processed.");
+            }
 
             if (isPaymentConfirmed()) {
                 paymentEntity.setStatus(Status.SUCCESSFUL.name());
@@ -81,5 +86,15 @@ public class PaymentServiceImpl implements PaymentService {
 
     private boolean isPaymentConfirmed() {
         return true;
+    }
+
+    private boolean isCardExpired(String expirationDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yy");
+        try {
+            Date expiration = dateFormat.parse(expirationDate);
+            return expiration.before(new Date());
+        } catch (ParseException e) {
+            return true;
+        }
     }
 }
