@@ -11,5 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class PaymentResponse {
+    //Returns to the request, the status of the payment operation
     private String status;
+
+    // Getters and setters are auto generated using lombok, but does not necessarily have to be within the face of the
+    // code in the IDE, this is to reduce boilerplate code.
 }

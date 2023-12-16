@@ -1,9 +1,5 @@
 package com.enuma.paymentapi.entity.model;
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.util.Date;
@@ -16,28 +12,58 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 
+//Entity class representing a payment record in the application.
 public class PaymentEntity {
+
+    //Unique identifier for the payment entity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Positive(message = "Amount must be a positive value")
-    private double amount;
+    //The amount associated with the payment
+    @Column(nullable = false)
+    private Double amount;
 
+    //The status of the payment (PENDING, SUCCESSFUL, FAILED)
+    @Column(nullable = false)
     private String status;
 
-    @Column(name = "timestamp")
-    private String timestamp;
+    //The date and time when the payment entity was created
+    @Column(name = "created_at")
+    private Date createdAt;
 
-    @NotBlank(message = "Device type is required")
+    //The date and time when the payment entity was last updated
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    //The type of device used for the payment (mobile, desktop, browser, POS)
+    @Column(nullable = false)
     private String deviceType;
 
-    @NotBlank(message = "Card number is required")
-    @Pattern(regexp = "\\d{16}", message = "Card number must be a 16-digit numeric value")
+    //The card number associated with the card used for payment
+    @Column(nullable = false)
     private String cardNumber;
 
+    //The expiry date of the card used for the payment
+    @Column(nullable = false)
+    private String expiryDate;
+
+    //The Card Verification Value (CVV) associated with the card used for payment
+    @Column(nullable = false)
+    private Integer cvv;
+
+
+//Callback method triggered before the payment entity is created/persisted
+// Sets the createdAt field to the current date and time
     @PrePersist
     protected void onCreate() {
-        timestamp = String.valueOf(new Date());
+        createdAt = new Date();
+    }
+
+//Callback method triggered before the payment entity is updated
+//Sets the updatedAt field to the current date and time
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
     }
 }

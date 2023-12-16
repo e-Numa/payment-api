@@ -6,9 +6,9 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 public class ValidationConfiguration {
-
-        @Bean
-        public LocalValidatorFactoryBean validator() {
+    //Creates and configures a LocalValidatorFactoryBean
+       @Bean
+       public LocalValidatorFactoryBean validator() {
             return new LocalValidatorFactoryBean();
         }
 }

@@ -6,7 +6,9 @@ import com.enuma.paymentapi.payload.request.PaymentRequest;
 import java.util.List;
 
 public interface PaymentService {
-    Object processPayment(PaymentRequest paymentRequest);
+
+    Object processPaymentByMode(PaymentRequest paymentRequest, PaymentEntity paymentEntity);
 
     List<PaymentEntity> getPayments(String startDate, String endDate, String status);
+
 }
