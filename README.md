@@ -21,7 +21,9 @@ Card payment is currently available, all other payments are still under modifica
 
    *Make Payment:*
      POST http://localhost:3944/api/payments/make-payment
+
      Content-Type: application/json
+
      {
      "amount": 12350.00,
      "cardNumber": "1234567890123456",
