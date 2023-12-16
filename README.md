@@ -1,6 +1,7 @@
 # Overview
 Welcome to the Payment API, a Java-based solution for processing multiple payments modes and retrieving payment information.
-Card payment is currently available, all other payments are still under modification and build.
+
+Card payment is currently the only available, all other payments, although provided, are still under modification/build and would be updated soon.
 
 ## Features
 - **Make Payment:** Securely process payments (allows only card for now)
