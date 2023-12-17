@@ -16,6 +16,9 @@ public class PaymentRequest {
     //The amount to be processed for the user payment
     private Double amount;
 
+    //The card name on the face of the card used for payment
+    private String cardHolderName;
+
     //The card number associated with the user payment
     private String cardNumber;
 

@@ -40,6 +40,10 @@ public class PaymentEntity {
     @Column(nullable = false)
     private String deviceType;
 
+    //The card name on the face of the card used for payment
+    @Column(nullable = false)
+    private String cardHolderName;
+
     //The card number associated with the card used for payment
     @Column(nullable = false)
     private String cardNumber;

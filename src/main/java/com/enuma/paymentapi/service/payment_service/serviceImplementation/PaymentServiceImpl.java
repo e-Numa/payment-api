@@ -43,6 +43,11 @@ public class PaymentServiceImpl implements PaymentService {
                 return "Validation error: Device type is required.";
             }
 
+            //Check if cardholder name is valid
+            if (StringUtils.isBlank(paymentRequest.getCardHolderName()) || !isValidCardHolderName(paymentRequest.getCardHolderName())) {
+                throw new PaymentException("Invalid card holder name. Please provide a valid entry of both first name and surname.");
+            }
+
             // Check if the card already exists in the database
             if (isCardAlreadyExist(paymentRequest.getCardNumber())) {
                 throw new PaymentException("Card already exists. Payment not processed.");
@@ -73,6 +78,7 @@ public class PaymentServiceImpl implements PaymentService {
             paymentEntity.setCardNumber(paymentRequest.getCardNumber());
             paymentEntity.setExpiryDate(paymentRequest.getExpiryDate());
             paymentEntity.setCvv(paymentRequest.getCvv());
+            paymentEntity.setCardHolderName(paymentRequest.getCardHolderName());
 
             paymentRepository.save(paymentEntity);
 
@@ -115,6 +121,12 @@ public class PaymentServiceImpl implements PaymentService {
             // If date parsing fails, consider the card expired
             return true;
         }
+    }
+
+    private boolean isValidCardHolderName(String cardHolderName) {
+        // A valid cardholder name should contain both first name and surname
+        String[] nameParts = cardHolderName.trim().split("\\s+");
+        return nameParts.length == 2 && !StringUtils.isBlank(nameParts[0]) && !StringUtils.isBlank(nameParts[1]);
     }
 
     private void validatePaymentRequest(PaymentRequest paymentRequest) {
