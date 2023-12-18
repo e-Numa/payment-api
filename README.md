@@ -27,6 +27,7 @@ Card payment is currently the only payment mode available for use; all other pay
 
      {
      "amount": 12350.00,
+     "cardHolderName": "John Doe",
      "cardNumber": "1234567890123456",
      "expiryDate": "12/25",
      "cvv": 123,
